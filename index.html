@@ -1,0 +1,45 @@
+
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
+
+<div id="desafio">
+  <!-- Personagens -->
+  <section class="container">
+    <section v-for="user in users" class="players">
+      <h3>{{user.name}}</h3>
+      <div class="life-container">
+        <div :class="{special: user.life<=20, attack: user.life<=10}" :style="{width: user.life + '%'}"></div>
+      </div>
+      <p>{{user.life}}%</p>
+    </section>
+
+   
+    </section>
+
+  </section>
+
+  <!-- Resultado -->
+  <section class="container" v-show="win != undefined">
+    <h2>{{ win }}</h2>
+  </section>
+
+  <!-- Botões -->
+  <section class="container buttons">
+    <button class="start" v-if="!openButtons" @click="reset(true)">Iniciar novo jogo</button>
+    <template v-else>
+      <button class="attack" :disabled="win != undefined" @click="attack">Ataque</button>
+      <button class="special" :disabled="win != undefined" @click="specialAttack">Ataque Especial</button>
+      <button class="healing" :disabled="win != undefined" @click="healing">Curar</button>
+      <button class="quit" @click="reset(false)">Desistir</button>
+    </template>
+  </section>
+
+  <!-- Ações -->
+  <ul class="container actions" v-if="actions.length != 0">
+    <li v-for=" action in actions" :style="{background: action.user == 'Jogador'? '#838DC3' : '#E27778'}">{{action.user}} {{action.text}}</li>
+  </ul>
+</div>
+<script src="app.js"></script>
